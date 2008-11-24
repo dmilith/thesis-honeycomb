@@ -14,7 +14,7 @@ import java.awt.Graphics;
  *
  * @author hannibal & vara
  */
-public class HoneyComb extends JFrame implements MouseListener {
+public class HoneyComb extends JPanel implements MouseListener {
 //test
     public final int MAX_X = 800;
     public final int MAX_Y = 800;
@@ -49,9 +49,7 @@ public class HoneyComb extends JFrame implements MouseListener {
                 System.out.println( "Help!" );
             }
         } );
-        this.getContentPane().add( but );
-        this.getContentPane().add( but2 );
-        this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        
         this.setSize( new Dimension( MAX_X, MAX_Y) );
         this.setVisible( true );
     }
