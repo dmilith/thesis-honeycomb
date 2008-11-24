@@ -30,13 +30,31 @@ public class HoneyComb extends JFrame implements MouseListener {
     private Vector <Integer> bx=new Vector <Integer>();
     private Vector <Integer> by=new Vector <Integer>();
     private int b;
-
+    private RoundButton but = new RoundButton("Quit HoneyComb");
+    private RoundButton but2 = new RoundButton("Help HoneyComb");
 
     public HoneyComb() {
         super();
-        this.setVisible( true );
+        this.addMouseListener( this );
+        this.setLayout(new FlowLayout());
+        but.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println( "Quit!" );
+                System.exit( 0 );
+            }
+        } );
+        but2.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println( "Help!" );
+            }
+        } );
+        this.getContentPane().add( but );
+        this.getContentPane().add( but2 );
+        this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         this.setSize( new Dimension( MAX_X, MAX_Y) );
-        this.addMouseListener(this);
+        this.setVisible( true );
     }
 
     /**
@@ -54,11 +72,9 @@ public class HoneyComb extends JFrame implements MouseListener {
         mouseX=e.getX(); mouseY=e.getY();
         odl=Math.sqrt(Math.pow((mouseX-bx.get(0)),2)+Math.pow((mouseY-by.get(0)),2));
 
-        for (int ii=1; ii<b; ii++)
-        {
+        for (int ii=1; ii<b; ii++) {
             odl2=Math.sqrt(Math.pow((mouseX-bx.get(ii)),2)+Math.pow((mouseY-by.get(ii)),2));
-            if (odl2<odl)
-            {
+            if (odl2<odl) {
                 odl=odl2;
                 bmin_aktualny=ii;
             }
@@ -187,7 +203,7 @@ public class HoneyComb extends JFrame implements MouseListener {
             }
             else
             {
-                g.setColor(Color.black);
+                g.setColor(Color.gray);
                 rysuj(g,bx.get(bmin_poprzedni),by.get(bmin_poprzedni));
 
                 g.setColor(Color.red);
