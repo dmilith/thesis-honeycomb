@@ -29,26 +29,12 @@ public class HoneyComb extends JPanel implements MouseListener {
     private Vector <Integer> bx=new Vector <Integer>();
     private Vector <Integer> by=new Vector <Integer>();
     private int b;
-    private RoundButton but = new RoundButton("Quit HoneyComb");
-    private RoundButton but2 = new RoundButton("Help HoneyComb");
+    
 
     public HoneyComb() {
         super();
         this.addMouseListener( this );
-        this.setLayout(new FlowLayout());
-        but.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println( "Quit!" );
-                System.exit( 0 );
-            }
-        } );
-        but2.addActionListener( new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println( "Help!" );
-            }
-        } );
+        this.setLayout(new FlowLayout());        
         
         this.setSize( new Dimension( MAX_X, MAX_Y) );
         this.setVisible( true );
@@ -58,7 +44,36 @@ public class HoneyComb extends JPanel implements MouseListener {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new HoneyComb();
+        JFrame window  =  new JFrame("HoneyComb");
+        
+        RoundButton but = new RoundButton("Quit HoneyComb");
+        RoundButton but2 = new RoundButton("Help HoneyComb");
+        but.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println( "Quit!" );
+                System.exit(0);
+            }
+        } );
+        but2.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Help!");
+            }
+        } );
+        JPanel panelButton = new JPanel();
+        panelButton.setBackground(Color.GREEN);
+        panelButton.add(but);
+        panelButton.add(but2);
+
+        window.setLayout(new BorderLayout());
+        window.getContentPane().add(panelButton,BorderLayout.NORTH);
+        window.getContentPane().add(new HoneyComb(),BorderLayout.CENTER);
+
+        window.setSize(800,600);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
     }
 
     @Override
@@ -140,8 +155,8 @@ public class HoneyComb extends JPanel implements MouseListener {
         }
 
      @Override
-     public void paint(Graphics g)
-        {
+     public void paintComponent(Graphics g){
+         
             if (clic==0)
             {
                 b=0;
