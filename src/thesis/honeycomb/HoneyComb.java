@@ -5,7 +5,6 @@ package thesis.honeycomb;
  * @authors hannibal & dmilith
  */
 
-import thesis.core.*;
 import java.util.Vector;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,10 +12,10 @@ import javax.swing.*;
 import java.awt.Graphics;
 /**
  *
- * @author hannibal
+ * @author hannibal & vara
  */
 public class HoneyComb extends JFrame implements MouseListener {
-
+//test
     public final int MAX_X = 800;
     public final int MAX_Y = 800;
 
