@@ -5,6 +5,7 @@
 
 package thesis.honeycomb.test;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,10 +20,13 @@ class HoneyComb implements MouseListener{
     //side of triangle or radius, the same for each  HoneyComb object
     private static int base = 10;
     private static double halfBase = base/2;
-    private static double height = Math.sqrt(3)*halfBase;
+    private static double height = HCConstants.sin60*base;
 
     private Point.Double center = null;
     private GeneralPath genPath;
+
+    private Color borderColor = Color.BLACK;
+    private boolean fillShape = false;
 
     public HoneyComb(double centerX,double centerY){
         center = new Point.Double(centerX,centerY);
@@ -133,6 +137,36 @@ class HoneyComb implements MouseListener{
      */
     public static void setBase(int aBase) {
         base = aBase;
+        halfBase = base/2;
+        height = HCConstants.sin60*base;
+    }
+
+    /**
+     * @return the fillShape
+     */
+    public boolean isFillShape() {
+        return fillShape;
+    }
+
+    /**
+     * @param fillShape the fillShape to set
+     */
+    public void setFillShape(boolean fillShape) {
+        this.fillShape = fillShape;
+    }
+
+    /**
+     * @return the borderColor
+     */
+    public Color getBorderColor() {
+        return borderColor;
+    }
+
+    /**
+     * @param borderColor the borderColor to set
+     */
+    public void setBorderColor(Color borderColor) {
+        this.borderColor = borderColor;
     }
     
     static class Verbose{

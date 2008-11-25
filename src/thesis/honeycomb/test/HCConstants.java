@@ -10,5 +10,5 @@ package thesis.honeycomb.test;
  * @author vara
  */
 public class HCConstants {
-    public static final double sin60 = Math.sqrt(3)*.5;
+    public static final double sin60 = Math.sqrt(3)/2;
 }
