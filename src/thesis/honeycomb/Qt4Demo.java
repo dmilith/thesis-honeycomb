@@ -24,6 +24,10 @@ public class Qt4Demo extends QGLWidget {
     
     setWindowTitle( "Thesis HoneyComb" );
     setGeometry( 0, 0, WIDTH, HEIGHT );
+    setMaximumHeight( HEIGHT );
+    setMaximumWidth( WIDTH );
+    setMinimumHeight( HEIGHT );
+    setMinimumWidth( WIDTH );
     show();
   }
 
