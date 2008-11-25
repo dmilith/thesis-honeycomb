@@ -13,15 +13,22 @@ import com.trolltech.qt.opengl.QGLWidget;
 public class Qt4Demo extends QGLWidget {
 
   static QPixmap myImage;
-  static final int WIDTH = 800, HEIGHT = 600;
+  private final int WIDTH = 800, HEIGHT = 600;
+  private QMovie movie;
 
   Qt4Demo() {
     // this isn't required but may be useful
     QTextCodec.setCodecForCStrings( QTextCodec.codecForName( "UTF-8" ) );
 
     myImage = new QPixmap();
-    myImage.load( "DoctorSaid.jpg" );
-    
+    myImage.load( "images/DoctorSaid.jpg" );
+
+    QLabel label = new QLabel();
+    movie = new QMovie("images/fire.gif");
+    label.setMovie(movie);
+    movie.start();
+    label.setParent( this );
+
     setWindowTitle( "Thesis HoneyComb" );
     setGeometry( 0, 0, WIDTH, HEIGHT );
     setMaximumHeight( HEIGHT );
@@ -60,7 +67,7 @@ public class Qt4Demo extends QGLWidget {
 
     new Qt4Demo();
 
-    QApplication.exec(); 
+    QApplication.exec();
   }
 
 }
