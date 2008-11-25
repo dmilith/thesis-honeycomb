@@ -6,4 +6,5 @@ preview-*
 dist/
 build/
 lib/
+*.log
 
