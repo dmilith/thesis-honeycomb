@@ -136,6 +136,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         g2.dispose();
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         long start = System.nanoTime();
         for (int i = 0; i < structure.size(); i++) {
@@ -157,22 +158,32 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         System.out.println("time "+(stop-start));
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         mouseClicked(e);
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
+<<<<<<< HEAD:src/thesis/honeycomb/test/HoneyCombCanvas.java
     public void mouseDragged(MouseEvent e) {    
+=======
+    @Override
+    public void mouseDragged(MouseEvent e) {
+>>>>>>> 6581e86f2471bd2efb0e352de2327caa10462280:src/thesis/honeycomb/test/HoneyCombCanvas.java
     }
 
+    @Override
     public void mouseMoved(MouseEvent e) {
     }
 
