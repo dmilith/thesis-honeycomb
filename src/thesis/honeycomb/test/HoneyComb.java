@@ -28,7 +28,7 @@ class HoneyComb implements MouseListener{
     private Color borderColor = Color.BLACK;
     private boolean fillShape = false;
 
-    private String id;
+    private int id;
 
     public HoneyComb(double centerX,double centerY){
         center = new Point.Double(centerX,centerY);
@@ -175,14 +175,14 @@ class HoneyComb implements MouseListener{
     /**
      * @return the id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
     

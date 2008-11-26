@@ -1,13 +1,16 @@
 package thesis.honeycomb.test;
 
-import com.trolltech.qt.gui.QFrame.Shape;
+import com.trolltech.qt.gui.QPainter.RenderHint;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -20,12 +23,12 @@ import javax.swing.border.BevelBorder;
 
 public class HoneyCombCanvas extends JComponent implements MouseListener,
                                                              MouseMotionListener{
-
-    private Dimension size = null;
     private HoneyCombVector structure;
+    private BufferedImage image = null;
+    private HoneyComb clickedArea=null;
 
     public HoneyCombCanvas(Dimension size){
-        this.size = size;
+
         setBounds(0,0,size.width,size.height);
         setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,
                                                   Color.BLUE, Color.DARK_GRAY));
@@ -97,26 +100,57 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
 
     @Override
     public void paintComponent(Graphics g){
+        //System.out.println("Paint component");
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g.create();
-        if(size==null || getWidth()!=size.getWidth() || getHeight()!=size.getHeight()){
-            structure.clear();
-            createStructureHoneyComb();
-            for (HoneyComb honeyComb : structure) {
-                g2.setColor(honeyComb.getBorderColor());
-                if(honeyComb.isFillShape()){
-                    g2.fill(honeyComb.getGenPath());
-                }else
-                    g2.draw(honeyComb.getGenPath());
 
-                g2.drawString(honeyComb.getId(),(int)honeyComb.getCenter().x,(int)honeyComb.getCenter().y);
+        if(image==null || getWidth()!=image.getWidth() ||
+                                        getHeight()!=image.getHeight()){            
+            structure.clear();            
+            createStructureHoneyComb();
+            if(clickedArea!=null)
+                clickedArea=structure.get(clickedArea.getId()-1);
+            image = (BufferedImage) createImage(getWidth(), getHeight());
+            Graphics2D gimage = image.createGraphics();            
+            gimage.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+            for (HoneyComb honeyComb : structure) {
+                //gimage.setColor(honeyComb.getBorderColor());
+                if(honeyComb.isFillShape()){
+                    gimage.fill(honeyComb.getGenPath());
+                }else
+                    gimage.draw(honeyComb.getGenPath());
+
+                gimage.drawString(honeyComb.getId()+"",(int)honeyComb.getCenter().x,(int)honeyComb.getCenter().y);
+                
             }
-        }        
+            gimage.dispose();
+        }
+        g2.drawImage(image,null,0,0);
+        if(clickedArea!=null){
+            g2.setColor(Color.red);
+            g2.fill(clickedArea.getGenPath());
+            g2.setColor(Color.BLACK);
+            g2.drawString(clickedArea.getId()+"",(int)clickedArea.getCenter().x,(int)clickedArea.getCenter().y);
+        }
         g2.dispose();
     }
 
     public void mouseClicked(MouseEvent e) {
-        System.out.println("x "+e.getX()+" y "+e.getY());
+        for (int i = 0; i < structure.size(); i++) {
+            HoneyComb hc = structure.get(i);
+            if(hc.getGenPath().contains(e.getPoint()) ){
+                System.out.println("index vec ="+i+" id="+hc.getId());
+                if(e.getButton()==MouseEvent.BUTTON1){
+                    clickedArea = hc;
+                }else if(clickedArea!=null && e.getButton()==MouseEvent.BUTTON3 &&
+                            clickedArea.getId()==hc.getId()){
+                    clickedArea=null;
+                }
+                System.out.println("Click Area="+clickedArea);
+                repaint();
+                break;
+            }
+        }
     }
 
     public void mousePressed(MouseEvent e) {
@@ -142,7 +176,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         @Override
         public synchronized boolean add(HoneyComb e) {
             boolean retVal = super.add(e);
-            e.setId(""+structure.size());
+            e.setId(structure.size());
             return retVal;
         }
 
