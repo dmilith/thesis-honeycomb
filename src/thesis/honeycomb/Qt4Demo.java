@@ -13,8 +13,8 @@ import com.trolltech.qt.opengl.QGLWidget;
 
 public class Qt4Demo extends QGLWidget {
 
-  private QPixmap myImage;
   private QPainter painter;
+  private int mouseX, mouseY;
   private final int WIDTH = 800, HEIGHT = 600;
   private QMovie movie, movie2, movie3;
   private QFont font;
@@ -79,13 +79,22 @@ public class Qt4Demo extends QGLWidget {
     painter.drawLine( 100, 100, 620, 550 );
     painter.drawLine( 100, 100, 690, 460 );
     painter.drawLine( 690, 460, 620, 550 );
+    paint( painter );
     
     painter.end();
+  }
+
+  public void paint( QPainter painter ) {
+    painter.drawPoint( new QPoint( mouseX, mouseY ));
+    placeContainer.elementAt(0).move( mouseX, mouseY );
   }
 
   @Override
   public void mousePressEvent( QMouseEvent event ) {
     System.out.println( "Pozycja myszki w oknie: x:" + event.pos().x() + " - y:" + event.pos().y() );
+    mouseX = event.pos().x();
+    mouseY = event.pos().y();
+    repaint();
   }
 
   public static void main( String args[] ) {
