@@ -37,7 +37,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
     private void init(){
 
         HoneyComb.Verbose.setEnable(false);
-        HoneyComb.setBase(80);
+        HoneyComb.setBase(36);
         
         structure = new HoneyCombVector();
     }
@@ -52,7 +52,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         firstHC.setFillShape(false);
         structure.add(firstHC);//1
 
-        for (int j=1;j<=20;j++){
+        for (int j=1;j<=4;j++){
 
             y=y-(2*HoneyComb.getHeight());
             structure.add(new HoneyComb(x,y));//2, second round 9 ...
