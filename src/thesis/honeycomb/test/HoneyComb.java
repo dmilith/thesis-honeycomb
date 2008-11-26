@@ -138,6 +138,7 @@ class HoneyComb implements MouseListener{
      * @param aBase the base to set
      */
     public static void setBase(int aBase) {
+        if (aBase % 2 != 0) aBase++;
         base = aBase;
         halfBase = base/2;
         height = HCConstants.sin60*base;
