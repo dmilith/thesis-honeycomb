@@ -16,7 +16,7 @@ public class Qt4Demo extends QGLWidget {
   private QPainter painter;
   private int mouseX, mouseY;
   private final int WIDTH = 800, HEIGHT = 600;
-  private QMovie movie, movie2, movie3;
+  private QMovie movie;
   private QFont font;
   private Vector<QLabel> placeContainer;
   private Vector<QPixmap> pixmapContainer;
