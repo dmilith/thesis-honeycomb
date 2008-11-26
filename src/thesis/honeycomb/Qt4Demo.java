@@ -23,7 +23,7 @@ public class Qt4Demo extends QGLWidget {
   private QFont font;
   private Vector<QLabel> placeContainer;
   private Vector<QPixmap> pixmapContainer;
-  private QSvgRenderer svgImg;
+  private QSvgRenderer svgImg, transImg;
 
   Qt4Demo() {
     super();
@@ -45,6 +45,7 @@ public class Qt4Demo extends QGLWidget {
     movie.start();
 
     svgImg = new QSvgRenderer("classpath:images/tux.svg", this);
+    transImg = new QSvgRenderer("classpath:images/box.svg", this);
 
     // adding labels to container
     for ( int i = 0; i < OBJECT_COUNT; i++ )
@@ -96,7 +97,8 @@ public class Qt4Demo extends QGLWidget {
     painter.drawLine( 690, 460, 620, 550 );
 
     svgImg.render( painter, new QRectF(50, 250, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
-    svgImg.render( painter, new QRectF(450, 250, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
+    transImg.render( painter, new QRectF(450, 350, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
+    transImg.render( painter, new QRectF(250, 380, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
   }
 
   @Override
