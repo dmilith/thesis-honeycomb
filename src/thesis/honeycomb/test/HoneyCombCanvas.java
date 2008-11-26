@@ -135,6 +135,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         g2.dispose();
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         for (int i = 0; i < structure.size(); i++) {
             HoneyComb hc = structure.get(i);
@@ -153,21 +154,27 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         }
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    @Override
     public void mouseDragged(MouseEvent e) {
     }
 
+    @Override
     public void mouseMoved(MouseEvent e) {
     }
 
