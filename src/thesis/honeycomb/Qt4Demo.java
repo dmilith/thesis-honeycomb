@@ -13,6 +13,8 @@ import com.trolltech.qt.opengl.QGLWidget;
 
 public class Qt4Demo extends QGLWidget {
 
+  private final int OBJECT_COUNT = 50;
+  
   private QPainter painter;
   private int mouseX, mouseY, choosedObject = 0;
   private final int WIDTH = 800, HEIGHT = 600;
@@ -32,16 +34,7 @@ public class Qt4Demo extends QGLWidget {
     pixmapContainer.add( 0, new QPixmap("images/alco.jpg") );
     pixmapContainer.add( 1, new QPixmap("images/fire.gif") );
 
-    for ( int i = 0; i < 10; i++ )
-      placeContainer.add( i, new QLabel( this ) );
-
-    for ( int i = 0; i < placeContainer.size(); i++ ) {
-      placeContainer.elementAt(i).setPixmap( pixmapContainer.elementAt(0) );
-      placeContainer.elementAt(i).move( 100*i, 200 );
-      placeContainer.elementAt(i).setMouseTracking( true );
-    }
-
-   /*
+    // movie
     QLabel label = new QLabel( this );
     movie = new QMovie( "images/fire.gif" );
     label.setMovie( movie );
@@ -49,9 +42,21 @@ public class Qt4Demo extends QGLWidget {
     movie.setSpeed( 40 );
     movie.setCacheMode( QMovie.CacheMode.CacheAll );
     movie.start();
-    */
 
-    font = new QFont( "Times", 17 );
+    // adding labels to container
+    for ( int i = 0; i < OBJECT_COUNT; i++ )
+      placeContainer.add( i, new QLabel( this ) );
+
+    // setting pixmaps from pixmap containers and add them to label containers
+    for ( int i = 0; i < placeContainer.size(); i++ ) {
+      if ( i % 2 == 0 )
+        placeContainer.elementAt(i).setPixmap( pixmapContainer.elementAt(0) );
+      else
+        placeContainer.elementAt(i).setPixmap( pixmapContainer.elementAt(1) );
+      placeContainer.elementAt(i).move( 15*i, 200 );
+    }
+
+    font = new QFont( "Times", 28 );
     setWindowTitle( "Thesis HoneyComb" );
     setGeometry( 0, 0, WIDTH, HEIGHT );
     setMaximumHeight( HEIGHT );
@@ -76,7 +81,7 @@ public class Qt4Demo extends QGLWidget {
     painter.setRenderHint( QPainter.RenderHint.TextAntialiasing );
     painter.setFont( font );
     //  will cause SIGSEGV here:  painter.drawPixmap( 50, 50, myImage );
-    painter.drawText( 600, 50, "Cześć załogo z utf8" );
+    painter.drawText( 500, 50, "Cześć załogo z utf8" );
     painter.drawLine( 100, 100, 620, 550 );
     painter.drawLine( 100, 100, 690, 460 );
     painter.drawLine( 690, 460, 620, 550 );
@@ -97,21 +102,18 @@ public class Qt4Demo extends QGLWidget {
       System.out.println( "Pozycja myszki w oknie: x:" + event.pos().x() + " - y:" + event.pos().y() );
       mouseX = event.pos().x();
       mouseY = event.pos().y();
+      repaint();
     } else if ( event.button().equals( event.button().RightButton ) ) {
       System.out.println( "Wciśnięto prawy przycisk myszy");
+      for ( int i = 0; i < OBJECT_COUNT; i++ ) {
+        if ( ( placeContainer.elementAt(i).underMouse() ) && ( event.button().equals( event.button().RightButton )) ) {
+          System.out.println( "Kliknąłeś na obiekt numer :" + i + "\nWybrano obiekt.");
+          choosedObject = i;
+        }
+      }
     } else if ( event.button().equals( event.button().MidButton ) ) {
       System.out.println( "Wciśnięto środkowy przycisk myszy");
     } 
-
-    // 10 bo mamy 10 elementów..
-    for ( int i = 0; i < 10; i++ ) {
-      if ( ( placeContainer.elementAt(i).underMouse() ) && ( event.button().equals( event.button().RightButton )) ) {
-        System.out.println( "Kliknąłeś na obiekt numer :" + i + "\nWybrano obiekt.");
-        choosedObject = i;
-      } 
-    }
-
-    repaint();
   }
 
   public static void main( String args[] ) {
