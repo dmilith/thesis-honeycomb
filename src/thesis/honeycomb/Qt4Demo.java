@@ -14,7 +14,7 @@ import com.trolltech.qt.opengl.QGLWidget;
 public class Qt4Demo extends QGLWidget {
 
   private QPainter painter;
-  private int mouseX, mouseY;
+  private int mouseX, mouseY, choosedObject = 0;
   private final int WIDTH = 800, HEIGHT = 600;
   private QMovie movie;
   private QFont font;
@@ -38,6 +38,7 @@ public class Qt4Demo extends QGLWidget {
     for ( int i = 0; i < placeContainer.size(); i++ ) {
       placeContainer.elementAt(i).setPixmap( pixmapContainer.elementAt(0) );
       placeContainer.elementAt(i).move( 100*i, 200 );
+      placeContainer.elementAt(i).setMouseTracking( true );
     }
 
    /*
@@ -86,14 +87,30 @@ public class Qt4Demo extends QGLWidget {
 
   public void paint( QPainter painter ) {
     painter.drawPoint( new QPoint( mouseX, mouseY ));
-    placeContainer.elementAt(0).move( mouseX, mouseY );
+    placeContainer.elementAt( choosedObject ).move( mouseX, mouseY );
   }
 
   @Override
   public void mousePressEvent( QMouseEvent event ) {
-    System.out.println( "Pozycja myszki w oknie: x:" + event.pos().x() + " - y:" + event.pos().y() );
-    mouseX = event.pos().x();
-    mouseY = event.pos().y();
+    if ( event.button().equals( event.button().LeftButton ) ) {
+      System.out.println( "Wciśnięto lewy przycisk myszy");
+      System.out.println( "Pozycja myszki w oknie: x:" + event.pos().x() + " - y:" + event.pos().y() );
+      mouseX = event.pos().x();
+      mouseY = event.pos().y();
+    } else if ( event.button().equals( event.button().RightButton ) ) {
+      System.out.println( "Wciśnięto prawy przycisk myszy");
+    } else if ( event.button().equals( event.button().MidButton ) ) {
+      System.out.println( "Wciśnięto środkowy przycisk myszy");
+    } 
+
+    // 10 bo mamy 10 elementów..
+    for ( int i = 0; i < 10; i++ ) {
+      if ( ( placeContainer.elementAt(i).underMouse() ) && ( event.button().equals( event.button().RightButton )) ) {
+        System.out.println( "Kliknąłeś na obiekt numer :" + i + "\nWybrano obiekt.");
+        choosedObject = i;
+      } 
+    }
+
     repaint();
   }
 
