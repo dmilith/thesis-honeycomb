@@ -28,6 +28,8 @@ class HoneyComb implements MouseListener{
     private Color borderColor = Color.BLACK;
     private boolean fillShape = false;
 
+    private String id;
+
     public HoneyComb(double centerX,double centerY){
         center = new Point.Double(centerX,centerY);
         createPath();
@@ -167,6 +169,20 @@ class HoneyComb implements MouseListener{
      */
     public void setBorderColor(Color borderColor) {
         this.borderColor = borderColor;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
     }
     
     static class Verbose{
