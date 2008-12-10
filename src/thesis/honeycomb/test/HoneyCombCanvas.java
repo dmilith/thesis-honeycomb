@@ -39,7 +39,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
     private void init(){
 
         HoneyComb.Verbose.setEnable(false);
-        HoneyComb.setBase(36);
+        HoneyComb.setBase(34);
         
         structure = new HoneyCombVector(100);
     }
@@ -74,7 +74,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         firstHC.setFillShape(false);
         structure.add(firstHC);//1
 
-        for (int j=1;j<=40;j++){
+        for (int j=1;j<=6;j++){
 
             y=y-(2*HoneyComb.getHeight());
             structure.add(new HoneyComb(x,y));//2, second round 9 ...
@@ -162,6 +162,17 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
     @Override
     public void mouseClicked(MouseEvent e) {
         
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("structure size "+structure.size());
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //mouseClicked(e);
+        long start = System.nanoTime();
         for (int i = 0; i < structure.size(); i++) {
             HoneyComb hc = structure.get(i);
             if(hc.getGenPath().contains(e.getPoint()) ){
@@ -173,20 +184,12 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
                     clickedArea=null;
                 }
                 //System.out.println("Click Area="+clickedArea);
+                long stop = System.nanoTime();
+                System.out.println("time needed for found honeyComb : "+((stop-start)/1000)+" mikro s");
                 repaint();
                 break;
             }
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        System.out.println("structure size "+structure.size());
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        mouseClicked(e);
     }
 
     @Override
