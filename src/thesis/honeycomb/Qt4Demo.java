@@ -34,6 +34,7 @@ public class Qt4Demo extends QGLWidget {
     QTextCodec.setCodecForCStrings( QTextCodec.codecForName( "UTF-8" ) );
     pixmapContainer.add( 0, new QPixmap("classpath:images/alco.jpg") );
     pixmapContainer.add( 1, new QPixmap("classpath:images/fire.gif") );
+    pixmapContainer.add( 2, new QPixmap("classpath:images/grass.jpg") );
 
     // movie
     QLabel label = new QLabel( this );
@@ -44,8 +45,8 @@ public class Qt4Demo extends QGLWidget {
     movie.setCacheMode( QMovie.CacheMode.CacheAll );
     movie.start();
 
-    svgImg = new QSvgRenderer("classpath:images/tux.svg", this);
-    transImg = new QSvgRenderer("classpath:images/box.svg", this);
+    svgImg = new QSvgRenderer( "classpath:images/tux.svg", this );
+    transImg = new QSvgRenderer( "classpath:images/box.svg", this );
 
     // adding labels to container
     for ( int i = 0; i < OBJECT_COUNT; i++ )
@@ -57,7 +58,8 @@ public class Qt4Demo extends QGLWidget {
         placeContainer.elementAt(i).setPixmap( pixmapContainer.elementAt(0) );
       else
         placeContainer.elementAt(i).setPixmap( pixmapContainer.elementAt(1) );
-      placeContainer.elementAt(i).move( 15*i, 200 );
+      placeContainer.elementAt(OBJECT_COUNT-1).setPixmap( pixmapContainer.elementAt(2) );
+      placeContainer.elementAt(i).move( 15 * i, 200 );
     }
 
     font = new QFont( "Times", 28 );
