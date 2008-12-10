@@ -1,15 +1,14 @@
 package thesis.honeycomb.test;
 
-import com.trolltech.qt.gui.QPainter.RenderHint;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 import javax.swing.BorderFactory;
@@ -42,11 +41,31 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         HoneyComb.Verbose.setEnable(false);
         HoneyComb.setBase(36);
         
-        structure = new HoneyCombVector();
+        structure = new HoneyCombVector(100);
+    }
+
+    public void createStructureHoneyComb2(){
+        long start = System.nanoTime();
+        double x = getWidth()/2;
+        double y = getHeight()/2;
+
+        HoneyComb firstHC = new HoneyComb(x,y);
+        firstHC.setBorderColor(Color.RED);
+        firstHC.setFillShape(false);
+        structure.add(firstHC);//1
+
+        double ytmp,xtmp;
+
+        for (int j=1;j<=1;j++){
+        //j how many rounds must be draw
+            
+        }
+        long stop = System.nanoTime();
+        System.out.println("time needed for create all structure : "+((stop-start)/1000000)+" ms");
     }
 
     public void createStructureHoneyComb(){
-
+        long start = System.nanoTime();
         double x = getWidth()/2;
         double y = getHeight()/2;        
 
@@ -55,7 +74,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         firstHC.setFillShape(false);
         structure.add(firstHC);//1
 
-        for (int j=1;j<=4;j++){
+        for (int j=1;j<=40;j++){
 
             y=y-(2*HoneyComb.getHeight());
             structure.add(new HoneyComb(x,y));//2, second round 9 ...
@@ -88,14 +107,15 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
                 structure.add(new HoneyComb(x,y));//7
             }
 
-            for(int i=0;i<j;i++)
-            {
+            for(int i=0;i<j;i++){
                 y=y-HoneyComb.getHeight();
                 x=x+(3*HoneyComb.getHalfBase());
                 if(i<j-1)
                     structure.add(new HoneyComb(x,y));//8
             }
         }
+        long stop = System.nanoTime();
+        System.out.println("time needed for create all structure : "+((stop-start)/1000000)+" ms");
     }
 
     @Override
@@ -130,6 +150,9 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
         if(clickedArea!=null){
             g2.setColor(Color.red);
             g2.fill(clickedArea.getGenPath());
+            Rectangle2D rec = clickedArea.getGenPath().getBounds2D();
+            g2.draw(rec);
+            System.out.println("Rectangle "+clickedArea.getGenPath().getBounds2D());
             g2.setColor(Color.BLACK);
             g2.drawString(clickedArea.getId()+"",(int)clickedArea.getCenter().x,(int)clickedArea.getCenter().y);
         }
@@ -158,6 +181,7 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
 
     @Override
     public void mousePressed(MouseEvent e) {
+        System.out.println("structure size "+structure.size());
     }
 
     @Override
@@ -181,7 +205,12 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
     }
 
     private class HoneyCombVector extends Vector<HoneyComb>{
-
+        public HoneyCombVector(){
+            super();
+        }
+        public HoneyCombVector(int intialCapacity){
+            super(intialCapacity);
+        }
         @Override
         public synchronized boolean add(HoneyComb e) {
             boolean retVal = super.add(e);
