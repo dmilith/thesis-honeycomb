@@ -5,6 +5,7 @@
 
 package thesis.honeycomb;
 
+//import com.trolltech.qt.core.QObject;
 import com.trolltech.qt.gui.*;
 
 /**
@@ -14,7 +15,7 @@ import com.trolltech.qt.gui.*;
 public class Qt4Demo2 extends QMainWindow {
 
   public void nameHere() {
-    System.out.println("Kliknięty");
+    System.out.println("Kliknięty :");
   }
 
 /*
@@ -30,7 +31,7 @@ public class Qt4Demo2 extends QMainWindow {
       QLineEdit edit = new QLineEdit( "Loren ipsum" );
       edit.setParent( widget );
       QPushButton button = new QPushButton();
-      button.pressed.connect( widget, "nameHere()" );
+      button.clicked.connect( widget, "nameHere()" );
       button.setParent( widget );
       edit.textChanged.connect( System.out, "println(String)" );
       edit.textChanged.connect( edit, "setWindowTitle(String)" );

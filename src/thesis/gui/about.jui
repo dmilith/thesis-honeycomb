@@ -1,0 +1,147 @@
+<ui version="4.0" language="jambi" >
+ <author>Daniel (dmilith) Dettlaff</author>
+ <class>AboutWindow</class>
+ <widget class="QWidget" name="AboutWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>268</width>
+    <height>242</height>
+   </rect>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>268</width>
+    <height>242</height>
+   </size>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>268</width>
+    <height>242</height>
+   </size>
+  </property>
+  <property name="cursor" >
+   <cursorShape>PointingHandCursor</cursorShape>
+  </property>
+  <property name="windowTitle" >
+   <string>About HoneyComb</string>
+  </property>
+  <widget class="QLabel" name="label" >
+   <property name="geometry" >
+    <rect>
+     <x>25</x>
+     <y>30</y>
+     <width>221</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font" >
+    <font>
+     <family>Lucida Sans</family>
+     <pointsize>23</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text" >
+    <string>HoneyComb</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2" >
+   <property name="geometry" >
+    <rect>
+     <x>60</x>
+     <y>80</y>
+     <width>151</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Plaster Miodu na Ostro</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3" >
+   <property name="geometry" >
+    <rect>
+     <x>80</x>
+     <y>105</y>
+     <width>41</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font" >
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="text" >
+    <string>wersja</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="version_label" >
+   <property name="geometry" >
+    <rect>
+     <x>130</x>
+     <y>105</y>
+     <width>36</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font" >
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="text" >
+    <string>0.0.0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4" >
+   <property name="geometry" >
+    <rect>
+     <x>45</x>
+     <y>165</y>
+     <width>191</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Autor: Daniel (dmilith) Dettlaff</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5" >
+   <property name="geometry" >
+    <rect>
+     <x>35</x>
+     <y>190</y>
+     <width>226</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Program na licencji: GPLv2 i LGPL</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+ <designerdata>
+  <property name="gridDeltaX" >
+   <number>5</number>
+  </property>
+  <property name="gridDeltaY" >
+   <number>5</number>
+  </property>
+  <property name="gridSnapX" >
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY" >
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible" >
+   <bool>true</bool>
+  </property>
+ </designerdata>
+</ui>
