@@ -21,4 +21,5 @@ public class Qt4Demo2 {
     edit.textChanged.connect( edit, "setWindowTitle(String)" );
     QApplication.exec();
   }
+  
 }
