@@ -162,6 +162,17 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
     @Override
     public void mouseClicked(MouseEvent e) {
         
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("structure size "+structure.size());
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //mouseClicked(e);
+        long start = System.nanoTime();
         for (int i = 0; i < structure.size(); i++) {
             HoneyComb hc = structure.get(i);
             if(hc.getGenPath().contains(e.getPoint()) ){
@@ -173,20 +184,12 @@ public class HoneyCombCanvas extends JComponent implements MouseListener,
                     clickedArea=null;
                 }
                 //System.out.println("Click Area="+clickedArea);
+                long stop = System.nanoTime();
+                System.out.println("time needed for found honeyComb : "+((stop-start)/1000)+" mikro s");
                 repaint();
                 break;
             }
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        System.out.println("structure size "+structure.size());
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        mouseClicked(e);
     }
 
     @Override
