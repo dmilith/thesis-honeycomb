@@ -1,11 +1,13 @@
 /********************************************************************************
 ** Form generated from reading ui file 'about.jui'
 **
-** Created: Wed Dec 10 20:09:37 2008
+** Created: Wed Dec 10 20:21:08 2008
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
+
+package thesis.gui;
 
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-bin/juic src/thesis/gui/*.jui -d src/thesis/gui/
+bin/juic src/thesis/gui/*.jui -p thesis.gui -d src/
 
