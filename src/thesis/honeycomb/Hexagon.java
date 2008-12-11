@@ -23,15 +23,15 @@ public class Hexagon {
   Hexagon( double _x, double _y, QGLWidget _parent ) {
     super();
     hexagon = new QSvgRenderer( "classpath:images/hexagon.svg", _parent );
-    x = _x + a;
-    y = _y + h;
+    x = _x - a;
+    y = _y - h;
   }
 
   Hexagon( double _x, double _y, QGLWidget _parent, String _file_name ) {
     super();
     hexagon = new QSvgRenderer( "classpath:images/" + _file_name, _parent );
-    x = _x + a;
-    y = _y + h;
+    x = _x - a;
+    y = _y - h;
   }
 
   public QSvgRenderer getHexagon() {
