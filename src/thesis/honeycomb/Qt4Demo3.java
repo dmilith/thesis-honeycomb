@@ -68,13 +68,16 @@ public class Qt4Demo3 extends QGLWidget {
   }
 
 
-  private final int a = 34;
+  private final int a = 32;
   private final int h = (int)( a * (Math.sqrt(3) / 2) );
   private final int l = 2 * h;
+  int X = WIDTH/2;
+  int Y = HEIGHT/2;
 
   public QPolygon getOneHoneyCombFrame( int x, int y ) {
-    x += 350;
-    y += 350;
+    x += WIDTH/2;
+    y += HEIGHT/2;
+            
     // wierzchołek 1
     Vector<QPoint> points = new Vector<QPoint>();
     points.addElement( new QPoint( x + h/2 , y - h ) ); // w1
@@ -89,6 +92,29 @@ public class Qt4Demo3 extends QGLWidget {
     }
     return hexagon;
   }
+                                              
+  public Vector<QPolygon> getRing( int ringNumber ) {
+    int x = X;
+    int y = Y;
+    int maxElements = 6 * ringNumber;
+    Vector<QPolygon> elements = new Vector<QPolygon>(maxElements);
+
+    // wierzchołki..
+    Vector<QPoint> ringPoints = new Vector<QPoint>();
+    ringPoints.addElement( new QPoint( x + 3*a/2 , y - (int)(a * Math.sqrt(3)/2) ) ); // w1
+    ringPoints.addElement( new QPoint( x + 3*a/2 , y + (int)(a * Math.sqrt(3)/2) ) ); // w2
+    ringPoints.addElement( new QPoint( x         , y + 2*h                      )); // w3
+    ringPoints.addElement( new QPoint( x - 3*a/2 , y + (int)(a * Math.sqrt(3)/2) ) ); // w4
+    ringPoints.addElement( new QPoint( x - 3*a/2 , y - (int)(a * Math.sqrt(3)/2) ) ); // w5
+    ringPoints.addElement( new QPoint( x         , y - 2*h                      ) ); // w6
+    QPolygon hexagon = new QPolygon();
+    for ( int i = 0; i < 6; i++ ) {
+      hexagon.add( getOneHoneyCombFrame( ringPoints.elementAt(i).x() , ringPoints.elementAt(i).y() ) );
+    }
+    elements.add(hexagon);
+    return elements;
+  }
+
 
   public void paint( QPainter painter ) {
   //  painter.drawPoint( new QPoint( mouseX, mouseY ));
@@ -105,7 +131,29 @@ public class Qt4Demo3 extends QGLWidget {
 
 
     painter.drawPolygon( getOneHoneyCombFrame(0, 0), Qt.FillRule.WindingFill );
-    painter.drawPoints( getOneHoneyCombFrame(100,100));
+    painter.drawPolygon( getOneHoneyCombFrame(3*a/2, -(int)(a*Math.sqrt(3)/2)) );
+    painter.drawPolygon( getOneHoneyCombFrame(3*a/2, (int)(a*Math.sqrt(3)/2)) );
+    painter.drawPolygon( getOneHoneyCombFrame(0, 2*h) );
+    painter.drawPolygon( getOneHoneyCombFrame(-3*a/2, (int)(a*Math.sqrt(3)/2)) );
+    painter.drawPolygon( getOneHoneyCombFrame(-3*a/2, -(int)(a*Math.sqrt(3)/2)) );
+    painter.drawPolygon( getOneHoneyCombFrame(0, -2*h) );
+
+  //  painter.drawPolygon( getOneHoneyCombFrame(110, 110), Qt.FillRule.WindingFill );
+/*
+ *
+ *    ringPoints.addElement( new QPoint( x + 3*a/2 , y - (int)(a * Math.sqrt(3)/2) ) ); // w1
+    ringPoints.addElement( new QPoint( x + 3*a/2 , y + (int)(a * Math.sqrt(3)/2) ) ); // w2
+    ringPoints.addElement( new QPoint( x         , y + a                        )); // w3
+    ringPoints.addElement( new QPoint( x - 3*a/2 , y + (int)(a * Math.sqrt(3)/2) ) ); // w4
+    ringPoints.addElement( new QPoint( x - 3*a/2 , y - (int)(a * Math.sqrt(3)/2) ) ); // w5
+    ringPoints.addElement( new QPoint( x         , y - a                        ) ); // w6
+*/
+
+ //    Vector<QPolygon> ring = getRing( 1 );
+//    for ( int z = 0; z< ring.size(); z++ ) {
+//      painter.drawPolygon(ring.elementAt(z));
+//    }
+//    painter.drawPoints( getOneHoneyCombFrame(100,100));
     
   //  svgImg.render( painter, new QRectF(50, 250, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
   //  transImg.render( painter, new QRectF(450, 350, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
