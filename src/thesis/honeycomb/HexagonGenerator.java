@@ -25,10 +25,21 @@ public class HexagonGenerator extends QGLWidget {
   HexagonGenerator() {
     super();
     myHexes = new Vector<Hexagon>();
-    myHexes.addElement( new Hexagon(0,0) );
+    myHexes.addElement( new Hexagon(  0,  0 ) );
+    myHexes.addElement( new Hexagon(  1,  0 ) );
+    myHexes.addElement( new Hexagon( -1,  0 ) );
+    myHexes.addElement( new Hexagon(  0,  1 ) );
+    myHexes.addElement( new Hexagon(  0, -1 ) );
+
+    myHexes.addElement( new Hexagon(  1,  1 ) );
+    myHexes.addElement( new Hexagon( -1, -1 ) );
+    myHexes.addElement( new Hexagon(  2,  2 ) );
+    myHexes.addElement( new Hexagon(  2,  1 ) );
+    myHexes.addElement( new Hexagon(  3,  1 ) );
+
     for (int p = 0; p < myHexes.size(); p++ )
       myHexes.elementAt(p).setParent(this);
-    this.setGeometry(0, 0, plusX*3, plusY*3);
+    this.setGeometry(600, 0, plusX*3, plusY*3);
     this.show();
   }
 
@@ -36,6 +47,14 @@ public class HexagonGenerator extends QGLWidget {
   public void paintEvent( QPaintEvent event ) {
     painter = new QPainter();
     painter.begin( this );
+    painter.setBackgroundMode( Qt.BGMode.OpaqueMode );
+    painter.setBackground( new QBrush( QColor.yellow, Qt.BrushStyle.SolidPattern ) );
+    painter.setPen( Qt.PenStyle.SolidLine );
+    painter.setPen( QColor.red );
+    //painter.fillRect( 0, 0, WIDTH, HEIGHT, new QBrush( QColor.black, Qt.BrushStyle.SolidPattern ));
+    painter.setClipping( true );
+    painter.setRenderHint( QPainter.RenderHint.Antialiasing );
+    painter.setRenderHint( QPainter.RenderHint.TextAntialiasing );
     paint( painter );
     painter.end();
   }
