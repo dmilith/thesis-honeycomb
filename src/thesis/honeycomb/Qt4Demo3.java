@@ -68,7 +68,7 @@ public class Qt4Demo3 extends QGLWidget {
   }
 
 
-  private final int a = 32;
+  private final int a = 22;
   private final int h = (int)( a * (Math.sqrt(3) / 2) );
   private final int l = 2 * h;
   int X = WIDTH/2;
@@ -96,31 +96,38 @@ public class Qt4Demo3 extends QGLWidget {
   public Vector<QPolygon> getRing( int ringNumber ) {
     int x = 0;
     int y = 0;
-    int maxElements = 6 * ringNumber;
+   // int maxElements = 6 * ringNumber;
     Vector<QPolygon> elements = new Vector<QPolygon>();
 
     // wierzchołki..
     Vector<QPoint> ringPoints = new Vector<QPoint>();
+
+    // OK
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber - (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w1
       if ( loop > 0 && (loop+1) %2 == 0 )
         ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber  ) ); // w1
     }
+
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber + (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w2
     }
+
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber         , y*ringNumber + 2*h*ringNumber                      )); // w3
     }
+
+    // OK
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber - 3*a*ringNumber/2 , y*ringNumber + (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w4
       if ( loop > 0 && (loop-1) %2 == 0)
         ringPoints.addElement( new QPoint( x - ( 3*a*(ringNumber-1)) , y*ringNumber  ) ); // w1
-//        ringPoints.addElement( new QPoint( -x*ringNumber - (ringNumber*a *(ringNumber-1)) , y*ringNumber ) ); // w4
     }
+
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber - 3*a*ringNumber/2 , y*ringNumber - (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w5
     }
+
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber         , y*ringNumber - 2*h*ringNumber                      ) ); // w6
     }
@@ -167,6 +174,16 @@ public class Qt4Demo3 extends QGLWidget {
     }
 
      ring = getRing( 4 );
+    for ( int z = 0; z< ring.size(); z++ ) {
+      painter.drawPolygon(ring.elementAt(z));
+    }
+
+     ring = getRing( 5 );
+    for ( int z = 0; z< ring.size(); z++ ) {
+      painter.drawPolygon(ring.elementAt(z));
+    }
+
+     ring = getRing( 6 );
     for ( int z = 0; z< ring.size(); z++ ) {
       painter.drawPolygon(ring.elementAt(z));
     }
