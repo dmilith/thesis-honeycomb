@@ -1,8 +1,5 @@
 package thesis.honeycomb;
 
-import java.util.Vector;
-import com.trolltech.qt.core.*;
-import com.trolltech.qt.gui.*;
 import com.trolltech.qt.opengl.QGLWidget;
 import com.trolltech.qt.svg.QSvgRenderer;
 
@@ -16,15 +13,16 @@ public class Hexagon {
 
   private final double a = 34;
   private final double h = a * (Math.sqrt(3) / 2);
+  private final double l = 2 * h;
  
   private QSvgRenderer hexagon;
   private double x, y;
 
-  Hexagon( double _x, double _y, QGLWidget _parent ) {
+  Hexagon( double _vectorX, double _vectorY, QGLWidget _parent ) {
     super();
     hexagon = new QSvgRenderer( "classpath:images/hexagon.svg", _parent );
-    x = _x - a;
-    y = _y - h;
+    x = _vectorX - a;
+    y = _vectorY - h;
   }
 
   Hexagon( double _x, double _y, QGLWidget _parent, String _file_name ) {
