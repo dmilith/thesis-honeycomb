@@ -10,7 +10,7 @@ import com.trolltech.qt.svg.QSvgWidget;
 
 public class Hexagon extends QSvgWidget {
 
-  private final double a = 34;
+  private final int a = 34;
   private final double h = a * (Math.sqrt(3) / 2);
   private final double l = 2 * h;
  
@@ -18,18 +18,14 @@ public class Hexagon extends QSvgWidget {
 
   Hexagon( double _vectorX, double _vectorY ) {
     super( "classpath:images/hexagon.svg" );
-    this.setMaximumWidth((int)a);
-    this.setMaximumHeight((int)a);
-    this.setMaximumSize((int)a, (int)a);
+    this.setMaximumSize( a, a);
     vX = _vectorX - a;
     vY = _vectorY - h;
-  }
-
-  Hexagon( double _x, double _y, String _file_name ) {
-    super( "classpath:images/" + _file_name );
-    this.setFixedSize((int)a, (int)a);
-    vX = _x - a;
-    vY = _y - h;
+    int x = 250;
+    int y = 250;
+    // TODO, FIXME here will be calculated real values of x and y on screen
+    
+    this.move( x, y );
   }
 
   public double vX() {

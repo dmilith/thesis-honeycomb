@@ -6,10 +6,9 @@
 package thesis.honeycomb;
 
 import com.trolltech.qt.gui.*;
-import com.trolltech.qt.svg.QSvgWidget;
 import com.trolltech.qt.opengl.QGLWidget;
 import com.trolltech.qt.core.*;
-import com.trolltech.qt.svg.QSvgRenderer;
+import java.util.Vector;
 
 /**
  *
@@ -18,16 +17,18 @@ import com.trolltech.qt.svg.QSvgRenderer;
 public class HexagonGenerator extends QGLWidget {
 
   private QPainter painter;
-  private Hexagon myHex;
+  private Vector<Hexagon> myHexes;
   private int mouseX, mouseY, choosenObject = 0;
 
   private final int plusX = 250, plusY = 250;
 
   HexagonGenerator() {
     super();
-    myHex = new Hexagon( 0, 0 );
-    myHex.setParent(this);
-    this.setGeometry(0, 0, plusX*2, plusY*2);
+    myHexes = new Vector<Hexagon>();
+    myHexes.addElement( new Hexagon(0,0) );
+    for (int p = 0; p < myHexes.size(); p++ )
+      myHexes.elementAt(p).setParent(this);
+    this.setGeometry(0, 0, plusX*3, plusY*3);
     this.show();
   }
 
@@ -40,7 +41,9 @@ public class HexagonGenerator extends QGLWidget {
   }
 
   public void paint( QPainter painter ) {
-    myHex.render(painter, new QPoint(0,0));
+    for (int p = 0; p < myHexes.size(); p++ ) {
+      myHexes.elementAt(p).render(painter, new QPoint( myHexes.elementAt(p).x(), myHexes.elementAt(p).y() ));
+    }
   }
 
   public static void main(String[] args) {
@@ -57,15 +60,16 @@ public class HexagonGenerator extends QGLWidget {
       mouseY = event.pos().y();
       repaint();
     } else if ( event.button().equals( event.button().RightButton ) ) {
-      for ( int i = 0; i < 1; i++ ) {
-        if ( ( myHex.underMouse() ) && ( event.button().equals( event.button().RightButton )) ) {
-          System.out.println( "Kliknąłeś na obiekt numer :" + i + "\nWybrano obiekt.");
-          choosenObject = i;
+      for (int p = 0; p < myHexes.size(); p++ ) {
+        if ( ( myHexes.elementAt(p).underMouse() ) && ( event.button().equals( event.button().RightButton )) ) {
+          System.out.println( "Kliknąłeś na obiekt numer :" + p + "\nWybrano obiekt.");
+          choosenObject = p;
         }
       }
     } else if ( event.button().equals( event.button().MidButton ) ) {
       System.out.println( "Wciśnięto środkowy przycisk myszy");
     }
+    //repaint();
   }
 
 }
