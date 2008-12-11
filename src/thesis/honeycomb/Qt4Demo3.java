@@ -106,11 +106,18 @@ public class Qt4Demo3 extends QGLWidget {
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber - (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w1
       if ( loop > 0 && (loop+1) %2 == 0 )
-        ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber  ) ); // w1
+        ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber ) ); // w1
+      else
+        if ( loop > 0 ) {
+          ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber + 2*h ) ); // w1
+          ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber - 2*h ) ); // w1
+        }
     }
 
     for ( int loop = 0; loop < ringNumber; loop++) {
       ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber + (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w2
+      if ( loop > 0 )
+        ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber + (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w2
     }
 
     for ( int loop = 0; loop < ringNumber; loop++) {
