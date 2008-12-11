@@ -47,8 +47,8 @@ public class HexagonGenerator extends QGLWidget {
   public void paintEvent( QPaintEvent event ) {
     painter = new QPainter();
     painter.begin( this );
-    painter.setBackgroundMode( Qt.BGMode.OpaqueMode );
-    painter.setBackground( new QBrush( QColor.yellow, Qt.BrushStyle.SolidPattern ) );
+    painter.setBackgroundMode( Qt.BGMode.TransparentMode );
+    painter.setBackground( new QBrush( QColor.transparent, Qt.BrushStyle.SolidPattern ) );
     painter.setPen( Qt.PenStyle.SolidLine );
     painter.setPen( QColor.red );
     //painter.fillRect( 0, 0, WIDTH, HEIGHT, new QBrush( QColor.black, Qt.BrushStyle.SolidPattern ));
