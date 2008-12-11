@@ -1,4 +1,4 @@
-package thesis.honeycomb;
+package thesis.honeycomb.test;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics;

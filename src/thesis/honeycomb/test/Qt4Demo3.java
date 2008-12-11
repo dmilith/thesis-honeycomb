@@ -1,4 +1,4 @@
-package thesis.honeycomb;
+package thesis.honeycomb.test;
 
 import java.util.Vector;
 import com.trolltech.qt.core.*;
@@ -24,6 +24,7 @@ public class Qt4Demo3 extends QGLWidget {
   private Vector<QLabel> placeContainer;
 //  private Vector<QPixmap> pixmapContainer;
   private QSvgRenderer svgImg, transImg;
+  private Vector<QPolygon> ring;
 
   Qt4Demo3() {
     super();
@@ -41,7 +42,7 @@ public class Qt4Demo3 extends QGLWidget {
     movie.setCacheMode( QMovie.CacheMode.CacheAll );
     movie.start();
 
-  //  svgImg = new QSvgRenderer( "classpath:images/tux.svg", this );
+    svgImg = new QSvgRenderer( "classpath:images/box.svg", this );
   //  transImg = new QSvgRenderer( "classpath:images/box.svg", this );
 
     // adding labels to container
@@ -98,7 +99,6 @@ public class Qt4Demo3 extends QGLWidget {
     int y = 0;
    // int maxElements = 6 * ringNumber;
     Vector<QPolygon> elements = new Vector<QPolygon>();
-
     // wierzchołki..
     Vector<QPoint> ringPoints = new Vector<QPoint>();
 
@@ -109,8 +109,8 @@ public class Qt4Demo3 extends QGLWidget {
         ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber ) ); // w1
       else
         if ( loop > 0 ) {
-          ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber + 2*h ) ); // w1
-          ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber - 2*h ) ); // w1
+          //ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber + 2*h ) ); // w1
+          //ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber - 2*h ) ); // w1
         }
     }
 
@@ -166,7 +166,7 @@ public class Qt4Demo3 extends QGLWidget {
     painter.drawPolygon( getOneHoneyCombFrame(0, 0), Qt.FillRule.WindingFill );
     painter.setPen( QColor.yellow );
 
-     Vector<QPolygon> ring = getRing( 1 );
+     ring = getRing( 1 );
     for ( int z = 0; z< ring.size(); z++ ) {
       painter.drawPolygon(ring.elementAt(z));
     }
@@ -194,6 +194,8 @@ public class Qt4Demo3 extends QGLWidget {
     for ( int z = 0; z< ring.size(); z++ ) {
       painter.drawPolygon(ring.elementAt(z));
     }
+
+    svgImg.render( painter, new QRectF(100, 100, 34, 34 ) );
 
   }
 

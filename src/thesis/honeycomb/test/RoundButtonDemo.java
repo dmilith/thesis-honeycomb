@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package thesis.honeycomb;
+package thesis.honeycomb.test;
 
+import thesis.honeycomb.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JButton;

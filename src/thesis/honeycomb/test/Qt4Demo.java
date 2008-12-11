@@ -1,4 +1,4 @@
-package thesis.honeycomb;
+package thesis.honeycomb.test;
 
 import java.util.Vector;
 import com.trolltech.qt.core.*;
@@ -32,7 +32,7 @@ public class Qt4Demo extends QGLWidget {
 
     // this isn't required but may be useful
     QTextCodec.setCodecForCStrings( QTextCodec.codecForName( "UTF-8" ) );
-    pixmapContainer.add( 0, new QPixmap("classpath:images/alco.jpg") );
+    pixmapContainer.add( 0, new QPixmap("classpath:images/hexagon.png") );
     pixmapContainer.add( 1, new QPixmap("classpath:images/fire.gif") );
     pixmapContainer.add( 2, new QPixmap("classpath:images/grass.jpg") );
 
@@ -45,8 +45,8 @@ public class Qt4Demo extends QGLWidget {
     movie.setCacheMode( QMovie.CacheMode.CacheAll );
     movie.start();
 
-    svgImg = new QSvgRenderer( "classpath:images/tux.svg", this );
-    transImg = new QSvgRenderer( "classpath:images/box.svg", this );
+    svgImg = new QSvgRenderer( "classpath:images/hexagon.svg", this );
+    transImg = new QSvgRenderer( "classpath:images/hexagon.svg", this );
 
     // adding labels to container
     for ( int i = 0; i < OBJECT_COUNT; i++ )
@@ -100,7 +100,6 @@ public class Qt4Demo extends QGLWidget {
 
     svgImg.render( painter, new QRectF(50, 250, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
     transImg.render( painter, new QRectF(450, 350, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
-    transImg.render( painter, new QRectF(250, 380, svgImg.defaultSize().width(), svgImg.defaultSize().height()) );
   }
 
   @Override

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package thesis.honeycomb;
+package thesis.honeycomb.test;
 
 //import com.trolltech.qt.core.QObject;
 import com.trolltech.qt.gui.*;

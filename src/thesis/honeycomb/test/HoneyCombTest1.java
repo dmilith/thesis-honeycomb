@@ -1,10 +1,11 @@
-package thesis.honeycomb;
+package thesis.honeycomb.test;
 
 /**
  *
  * @authors hannibal & dmilith
  */
 
+import thesis.honeycomb.*;
 import java.util.Vector;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +15,7 @@ import java.awt.Graphics;
  *
  * @author hannibal & vara
  */
-public class HoneyComb extends JPanel implements MouseListener {
+public class HoneyCombTest1 extends JPanel implements MouseListener {
 //test
     public final int MAX_X = 800;
     public final int MAX_Y = 800;
@@ -31,7 +32,7 @@ public class HoneyComb extends JPanel implements MouseListener {
     private int b;
     
 
-    public HoneyComb() {
+    public HoneyCombTest1() {
         super();
         this.addMouseListener( this );
         this.setLayout(new FlowLayout());        
@@ -68,7 +69,7 @@ public class HoneyComb extends JPanel implements MouseListener {
 
         window.setLayout(new BorderLayout());
         window.getContentPane().add(panelButton,BorderLayout.NORTH);
-        window.getContentPane().add(new HoneyComb(),BorderLayout.CENTER);
+        window.getContentPane().add(new HoneyCombTest1(),BorderLayout.CENTER);
 
         window.setSize(800,600);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
