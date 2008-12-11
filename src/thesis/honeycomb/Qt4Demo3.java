@@ -101,12 +101,30 @@ public class Qt4Demo3 extends QGLWidget {
 
     // wierzchołki..
     Vector<QPoint> ringPoints = new Vector<QPoint>();
-    ringPoints.addElement( new QPoint( x + 3*a/2 , y - (int)(a * Math.sqrt(3)/2) ) ); // w1
-    ringPoints.addElement( new QPoint( x + 3*a/2 , y + (int)(a * Math.sqrt(3)/2) ) ); // w2
-    ringPoints.addElement( new QPoint( x         , y + 2*h                      )); // w3
-    ringPoints.addElement( new QPoint( x - 3*a/2 , y + (int)(a * Math.sqrt(3)/2) ) ); // w4
-    ringPoints.addElement( new QPoint( x - 3*a/2 , y - (int)(a * Math.sqrt(3)/2) ) ); // w5
-    ringPoints.addElement( new QPoint( x         , y - 2*h                      ) ); // w6
+    for ( int loop = 0; loop < ringNumber; loop++) {
+      ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber - (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w1
+      if ( loop > 0 && (loop+1) %2 == 0 )
+        ringPoints.addElement( new QPoint( x + ( 3*a*(ringNumber-1)) , y*ringNumber  ) ); // w1
+    }
+    for ( int loop = 0; loop < ringNumber; loop++) {
+      ringPoints.addElement( new QPoint( x*ringNumber + 3*a*ringNumber/2 , y*ringNumber + (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w2
+    }
+    for ( int loop = 0; loop < ringNumber; loop++) {
+      ringPoints.addElement( new QPoint( x*ringNumber         , y*ringNumber + 2*h*ringNumber                      )); // w3
+    }
+    for ( int loop = 0; loop < ringNumber; loop++) {
+      ringPoints.addElement( new QPoint( x*ringNumber - 3*a*ringNumber/2 , y*ringNumber + (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w4
+      if ( loop > 0 && (loop-1) %2 == 0)
+        ringPoints.addElement( new QPoint( x - ( 3*a*(ringNumber-1)) , y*ringNumber  ) ); // w1
+//        ringPoints.addElement( new QPoint( -x*ringNumber - (ringNumber*a *(ringNumber-1)) , y*ringNumber ) ); // w4
+    }
+    for ( int loop = 0; loop < ringNumber; loop++) {
+      ringPoints.addElement( new QPoint( x*ringNumber - 3*a*ringNumber/2 , y*ringNumber - (int)(a*ringNumber * Math.sqrt(3)/2) ) ); // w5
+    }
+    for ( int loop = 0; loop < ringNumber; loop++) {
+      ringPoints.addElement( new QPoint( x*ringNumber         , y*ringNumber - 2*h*ringNumber                      ) ); // w6
+    }
+    
     QPolygon hexagon = new QPolygon();
     for ( int i = 0; i < ringPoints.size(); i++ ) {
       hexagon = ( getOneHoneyCombFrame( ringPoints.elementAt(i).x() , ringPoints.elementAt(i).y() ) );
@@ -138,6 +156,21 @@ public class Qt4Demo3 extends QGLWidget {
     for ( int z = 0; z< ring.size(); z++ ) {
       painter.drawPolygon(ring.elementAt(z));
     }
+     ring = getRing( 2 );
+    for ( int z = 0; z< ring.size(); z++ ) {
+      painter.drawPolygon(ring.elementAt(z));
+    }
+
+     ring = getRing( 3 );
+    for ( int z = 0; z< ring.size(); z++ ) {
+      painter.drawPolygon(ring.elementAt(z));
+    }
+
+     ring = getRing( 4 );
+    for ( int z = 0; z< ring.size(); z++ ) {
+      painter.drawPolygon(ring.elementAt(z));
+    }
+
   }
 
   @Override
