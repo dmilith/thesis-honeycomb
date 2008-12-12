@@ -6,16 +6,18 @@
 package thesis.honeycomb;
 
 import com.trolltech.qt.gui.*;
-import com.trolltech.qt.opengl.QGLWidget;
 import com.trolltech.qt.core.*;
 import java.util.Vector;
+import java.util.Date;
 
 /**
  *
  * @author dmilith
  */
-public class HexagonGenerator extends QGLWidget {
+public class HexagonGenerator extends QMainWindow {
 
+  private QPolygonF actualPolygon;
+  private QGraphicsView scene;
   private QPainter painter;
   private Vector<Hexagon> myHexes;
   private int mouseX, mouseY, choosenObject = 0;
@@ -25,18 +27,14 @@ public class HexagonGenerator extends QGLWidget {
   HexagonGenerator() {
     super();
     myHexes = new Vector<Hexagon>();
-    myHexes.addElement( new Hexagon(  0,  0 ) );
-    myHexes.addElement( new Hexagon(  1,  0 ) );
-    myHexes.addElement( new Hexagon( -1,  0 ) );
-    myHexes.addElement( new Hexagon(  0,  1 ) );
-    myHexes.addElement( new Hexagon(  0, -1 ) );
-
-    myHexes.addElement( new Hexagon(  1,  1 ) );
-    myHexes.addElement( new Hexagon( -1, -1 ) );
-    myHexes.addElement( new Hexagon(  2,  2 ) );
-    myHexes.addElement( new Hexagon(  2,  1 ) );
-    myHexes.addElement( new Hexagon(  3,  1 ) );
-
+      Date time_start = new Date();
+      for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+          myHexes.addElement( new Hexagon(  x,  y ) );
+        }
+    Date time_end = new Date();
+    System.out.println( time_end.getTime() - time_start.getTime() );
+    }
     for (int p = 0; p < myHexes.size(); p++ )
       myHexes.elementAt(p).setParent(this);
     this.setGeometry(600, 0, plusX*3, plusY*3);
@@ -46,23 +44,30 @@ public class HexagonGenerator extends QGLWidget {
   @Override
   public void paintEvent( QPaintEvent event ) {
     painter = new QPainter();
+    scene = new QGraphicsView(this);
+
+    scene.setSceneRect(0, 0, plusX*3, plusX*3);
+    scene.setCacheMode(QGraphicsView.CacheModeFlag.CacheBackground);
     painter.begin( this );
-    painter.setBackgroundMode( Qt.BGMode.TransparentMode );
-    painter.setBackground( new QBrush( QColor.transparent, Qt.BrushStyle.SolidPattern ) );
-    painter.setPen( Qt.PenStyle.SolidLine );
-    painter.setPen( QColor.red );
-    //painter.fillRect( 0, 0, WIDTH, HEIGHT, new QBrush( QColor.black, Qt.BrushStyle.SolidPattern ));
-    painter.setClipping( true );
+
+    painter.setBackgroundMode( Qt.BGMode.OpaqueMode );
+  //  painter.fillRect( 0, 0, 500, 500, new QBrush( QColor.black, Qt.BrushStyle.SolidPattern ));
     painter.setRenderHint( QPainter.RenderHint.Antialiasing );
-    painter.setRenderHint( QPainter.RenderHint.TextAntialiasing );
+    painter.setOpacity(0.5);
+
     paint( painter );
+    scene.render(painter);
     painter.end();
   }
 
   public void paint( QPainter painter ) {
+    Date time_start = new Date();
     for (int p = 0; p < myHexes.size(); p++ ) {
       myHexes.elementAt(p).render(painter, new QPoint( myHexes.elementAt(p).x(), myHexes.elementAt(p).y() ));
     }
+    Date time_end = new Date();
+    System.out.print("Paint: ");
+    System.out.println( time_end.getTime() - time_start.getTime() );
   }
 
   public static void main(String[] args) {
@@ -77,18 +82,19 @@ public class HexagonGenerator extends QGLWidget {
       System.out.println( "Pozycja myszki w oknie: x:" + event.pos().x() + " - y:" + event.pos().y() );
       mouseX = event.pos().x();
       mouseY = event.pos().y();
-      repaint();
     } else if ( event.button().equals( event.button().RightButton ) ) {
       for (int p = 0; p < myHexes.size(); p++ ) {
         if ( ( myHexes.elementAt(p).underMouse() ) && ( event.button().equals( event.button().RightButton )) ) {
           System.out.println( "Kliknąłeś na obiekt numer :" + p + "\nWybrano obiekt.");
-          choosenObject = p;
+         // myHexes.remove( p );
+          myHexes.addElement( new Hexagon( myHexes.elementAt(p).vX(), myHexes.elementAt(p).vY(), "hexagon-green.svg" ) );
+        //  myHexes.elementAt(p).setParent(this);
+          repaint();
         }
       }
     } else if ( event.button().equals( event.button().MidButton ) ) {
       System.out.println( "Wciśnięto środkowy przycisk myszy");
     }
-    //repaint();
   }
 
 }
